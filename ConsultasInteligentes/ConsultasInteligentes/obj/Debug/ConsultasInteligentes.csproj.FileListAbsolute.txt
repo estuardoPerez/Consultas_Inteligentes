@@ -1,0 +1,10 @@
+c:\users\chopes\documents\visual studio 2015\Projects\ConsultasInteligentes\ConsultasInteligentes\bin\Debug\ConsultasInteligentes.dll.config
+c:\users\chopes\documents\visual studio 2015\Projects\ConsultasInteligentes\ConsultasInteligentes\bin\Debug\ConsultasInteligentes.dll
+c:\users\chopes\documents\visual studio 2015\Projects\ConsultasInteligentes\ConsultasInteligentes\bin\Debug\ConsultasInteligentes.pdb
+c:\users\chopes\documents\visual studio 2015\Projects\ConsultasInteligentes\ConsultasInteligentes\obj\Debug\ConsultasInteligentes.csprojResolveAssemblyReference.cache
+c:\users\chopes\documents\visual studio 2015\Projects\ConsultasInteligentes\ConsultasInteligentes\obj\Debug\ConsultasInteligentes.frm_consultas.resources
+c:\users\chopes\documents\visual studio 2015\Projects\ConsultasInteligentes\ConsultasInteligentes\obj\Debug\ConsultasInteligentes.frm_menu.resources
+c:\users\chopes\documents\visual studio 2015\Projects\ConsultasInteligentes\ConsultasInteligentes\obj\Debug\ConsultasInteligentes.Properties.Resources.resources
+c:\users\chopes\documents\visual studio 2015\Projects\ConsultasInteligentes\ConsultasInteligentes\obj\Debug\ConsultasInteligentes.csproj.GenerateResource.Cache
+c:\users\chopes\documents\visual studio 2015\Projects\ConsultasInteligentes\ConsultasInteligentes\obj\Debug\ConsultasInteligentes.dll
+c:\users\chopes\documents\visual studio 2015\Projects\ConsultasInteligentes\ConsultasInteligentes\obj\Debug\ConsultasInteligentes.pdb
