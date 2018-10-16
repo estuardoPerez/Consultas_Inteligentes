@@ -13,7 +13,8 @@ namespace ConsultasInteligentes
 {
     public partial class frm_menu : Form
     {
-        public frm_menu(String usuario, String modulo)
+        String[] modulo;
+        public frm_menu(String usuario, String[] modulo)
         {
             /* 
              * programador: Anibal Estuardo Pérez Bonilla
@@ -21,7 +22,7 @@ namespace ConsultasInteligentes
              */
             InitializeComponent();
             lbl_usuario.Text = usuario; // nombre de usuario
-            lbl_modulo.Text = modulo; // tablas disponibles
+            this.modulo = modulo; // tablas disponibles
             actualizar();
         }
 
@@ -99,7 +100,7 @@ namespace ConsultasInteligentes
             * programador: Cristian Estuardo Pedroza Vaides
             * descripcion: abre formulacion para las gestiones de consultas
             */
-            frm_consultas nuevo = new frm_consultas(this, lbl_usuario.Text, lbl_modulo.Text);
+            frm_consultas nuevo = new frm_consultas(this, lbl_usuario.Text, modulo);
             nuevo.Show();
             this.Hide();
         }
@@ -155,8 +156,6 @@ namespace ConsultasInteligentes
              * programador: Pedro Javier Simón Batzibal
              * descripcion: consulta general de tabla principal
              */
-            getConsulta("SELECT * FROM " + lbl_modulo.Text);
-            cbo_consultas.SelectedIndex = -1;
         }
 
         private void cbo_consultas_SelectedIndexChanged(object sender, EventArgs e)

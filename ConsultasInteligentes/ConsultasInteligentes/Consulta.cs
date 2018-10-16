@@ -13,10 +13,10 @@ namespace ConsultasInteligentes
          * descripcion: clase a ultilizar por las demas dll 
          */
         private String usuario;
-        private String modulo;
+        private String[] modulo;
         private frm_menu nuevo;
 
-        public Consulta (String usuario, String modulo){
+        public Consulta (String usuario, String[] modulo){
             /* 
              * programador: Anibal Estuardo Pérez Bonilla
              * descripcion: constructor que inicializa variables globales

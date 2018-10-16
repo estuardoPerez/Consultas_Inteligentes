@@ -118,23 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btn_consultar_all.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAH
-        owAAB6MBMC+yxQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAG4SURBVFhH7ZVL
-        SwJRFMf9JLVp17JVa3ctolX0BQJp2QdoL0ERLYJQCioTCR+VGWYoZuKLUce3Ujk4PtGWbYL+zQwUc8uc
-        uXRdCC5+i3PO5Zzfnbl3xgDgm9du1TToVfEfmgL3ViuGNtR9R0EELAQa9RQySc+HXgkiYCXAxZ26JYiA
-        pYBeCSJgLaBHggjGIaAlQQTjEhglQQQsBFqNDEq8fyjlXOBdEDijeiZzAS3kGeqZVAK8kIaF8w+t6YVa
-        wFUIQ2yX4C1FMGfbxlbESdRpoRZY8x1j8WIfMydmWNN3Sk5+z+mESwM32mKW6CVDLSDvfjPkQLgWJ/Ld
-        VkEiP4ICsf4LagHWTLZApcHjnA8OremFWsBfiaLTKSNYjWHevqOch59raKAWWPFaYXQfKLdgN+FVcvIt
-        yKYuNWFyC+rSaV4PnOG2/EjkW42sIvI3v4fLUAuwZrIFXpoFeIoPQ2t6oRaIPiXR61YQe05hwbEH072N
-        qNNCLbB0dYjlawtmT83Sj8iFvpRrSwcsn77RpC3yRC8ZaoGamMOq7wh21QeoLz0RUeA0GUjr1L1kqAVY
-        MxWYCkwFSAEYPgHTv8r1zGK1xwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>104, 17</value>
-  </metadata>
   <data name="btn_consultar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAH
@@ -161,6 +144,9 @@
         e5PJ5Nue7b1AbXobVcOiuWGl/pSIk541GtPqu6gS6GmAI/8DoCXyverUxF8AAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>104, 17</value>
+  </metadata>
   <data name="btn_gestionar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAu

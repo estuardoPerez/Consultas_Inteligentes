@@ -35,7 +35,6 @@
             this.lbl_usuario = new System.Windows.Forms.Label();
             this.Lbl_gestionFormatos = new System.Windows.Forms.Label();
             this.gpb_consultas = new System.Windows.Forms.GroupBox();
-            this.btn_consultar_all = new System.Windows.Forms.Button();
             this.btn_consultar = new System.Windows.Forms.Button();
             this.btn_gestionar = new System.Windows.Forms.Button();
             this.lbl_consultas = new System.Windows.Forms.Label();
@@ -46,7 +45,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btn_ayuda = new System.Windows.Forms.Button();
-            this.lbl_modulo = new System.Windows.Forms.Label();
             this.gpb_consultas.SuspendLayout();
             this.gpb_data.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_query)).BeginInit();
@@ -99,7 +97,6 @@
             // gpb_consultas
             // 
             this.gpb_consultas.BackColor = System.Drawing.Color.Transparent;
-            this.gpb_consultas.Controls.Add(this.btn_consultar_all);
             this.gpb_consultas.Controls.Add(this.btn_consultar);
             this.gpb_consultas.Controls.Add(this.btn_gestionar);
             this.gpb_consultas.Controls.Add(this.lbl_consultas);
@@ -112,27 +109,12 @@
             this.gpb_consultas.TabStop = false;
             this.gpb_consultas.Text = "listado de consultas";
             // 
-            // btn_consultar_all
-            // 
-            this.btn_consultar_all.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_consultar_all.Image = ((System.Drawing.Image)(resources.GetObject("btn_consultar_all.Image")));
-            this.btn_consultar_all.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_consultar_all.Location = new System.Drawing.Point(726, 39);
-            this.btn_consultar_all.Name = "btn_consultar_all";
-            this.btn_consultar_all.Size = new System.Drawing.Size(61, 60);
-            this.btn_consultar_all.TabIndex = 80;
-            this.btn_consultar_all.Text = "All";
-            this.btn_consultar_all.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTip1.SetToolTip(this.btn_consultar_all, "Selecciona todos los registros");
-            this.btn_consultar_all.UseVisualStyleBackColor = true;
-            this.btn_consultar_all.Click += new System.EventHandler(this.btn_consultar_all_Click);
-            // 
             // btn_consultar
             // 
             this.btn_consultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_consultar.Image = ((System.Drawing.Image)(resources.GetObject("btn_consultar.Image")));
             this.btn_consultar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btn_consultar.Location = new System.Drawing.Point(659, 39);
+            this.btn_consultar.Location = new System.Drawing.Point(726, 39);
             this.btn_consultar.Name = "btn_consultar";
             this.btn_consultar.Size = new System.Drawing.Size(61, 60);
             this.btn_consultar.TabIndex = 78;
@@ -176,7 +158,7 @@
             this.cbo_consultas.FormattingEnabled = true;
             this.cbo_consultas.Location = new System.Drawing.Point(212, 49);
             this.cbo_consultas.Name = "cbo_consultas";
-            this.cbo_consultas.Size = new System.Drawing.Size(421, 21);
+            this.cbo_consultas.Size = new System.Drawing.Size(493, 21);
             this.cbo_consultas.TabIndex = 70;
             this.toolTip1.SetToolTip(this.cbo_consultas, "Consultas creadas con su usuario");
             this.cbo_consultas.SelectedIndexChanged += new System.EventHandler(this.cbo_consultas_SelectedIndexChanged);
@@ -240,17 +222,6 @@
             this.btn_ayuda.UseVisualStyleBackColor = false;
             this.btn_ayuda.Click += new System.EventHandler(this.btn_ayuda_Click);
             // 
-            // lbl_modulo
-            // 
-            this.lbl_modulo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lbl_modulo.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_modulo.Location = new System.Drawing.Point(703, 612);
-            this.lbl_modulo.Name = "lbl_modulo";
-            this.lbl_modulo.Size = new System.Drawing.Size(202, 18);
-            this.lbl_modulo.TabIndex = 91;
-            this.lbl_modulo.Text = "MODULO";
-            this.lbl_modulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // frm_menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -259,7 +230,6 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(176)))), ((int)(((byte)(153)))));
             this.ClientSize = new System.Drawing.Size(917, 661);
             this.Controls.Add(this.btn_ayuda);
-            this.Controls.Add(this.lbl_modulo);
             this.Controls.Add(this.lbl_hora);
             this.Controls.Add(this.lbl_fecha);
             this.Controls.Add(this.lbl_usuario);
@@ -299,8 +269,6 @@
         private System.Windows.Forms.DataGridView dgv_query;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label lbl_modulo;
         private System.Windows.Forms.Button btn_ayuda;
-        private System.Windows.Forms.Button btn_consultar_all;
     }
 }

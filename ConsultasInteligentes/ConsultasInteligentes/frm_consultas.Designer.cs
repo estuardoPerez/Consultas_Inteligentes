@@ -132,7 +132,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btn_ayuda = new System.Windows.Forms.Button();
-            this.lbl_modulo = new System.Windows.Forms.Label();
             this.tbc_gestion.SuspendLayout();
             this.tbp_consultar.SuspendLayout();
             this.gpb_data.SuspendLayout();
@@ -1054,6 +1053,7 @@
             this.chk_all.Text = "Todos los campos";
             this.toolTip1.SetToolTip(this.chk_all, "Muestra todo los campos disponibles");
             this.chk_all.UseVisualStyleBackColor = true;
+            this.chk_all.Visible = false;
             this.chk_all.CheckedChanged += new System.EventHandler(this.chk_all_CheckedChanged);
             // 
             // txt_alias
@@ -1386,17 +1386,6 @@
             this.btn_ayuda.UseVisualStyleBackColor = false;
             this.btn_ayuda.Click += new System.EventHandler(this.btn_ayuda_Click);
             // 
-            // lbl_modulo
-            // 
-            this.lbl_modulo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lbl_modulo.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_modulo.Location = new System.Drawing.Point(703, 612);
-            this.lbl_modulo.Name = "lbl_modulo";
-            this.lbl_modulo.Size = new System.Drawing.Size(202, 18);
-            this.lbl_modulo.TabIndex = 95;
-            this.lbl_modulo.Text = "MODULO";
-            this.lbl_modulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // frm_consultas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1404,7 +1393,6 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(176)))), ((int)(((byte)(153)))));
             this.ClientSize = new System.Drawing.Size(917, 661);
-            this.Controls.Add(this.lbl_modulo);
             this.Controls.Add(this.btn_ayuda);
             this.Controls.Add(this.lbl_hora);
             this.Controls.Add(this.lbl_fecha);
@@ -1548,7 +1536,6 @@
         private System.Windows.Forms.ComboBox cbo_condiciones_by;
         private System.Windows.Forms.Button btn_agregar_condicion_by;
         private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label lbl_modulo;
         private System.Windows.Forms.DataGridView dgv_query;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;

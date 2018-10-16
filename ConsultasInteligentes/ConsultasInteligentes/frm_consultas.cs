@@ -14,8 +14,9 @@ namespace ConsultasInteligentes
     public partial class frm_consultas : Form
     {
         private frm_menu menu;
+        String[] modulo;
 
-        public frm_consultas(frm_menu anterior, String usuario, String modulo)
+        public frm_consultas(frm_menu anterior, String usuario, String[] modulo)
         {
             /* 
              * programador: Anibal Estuardo Pérez Bonilla
@@ -23,7 +24,7 @@ namespace ConsultasInteligentes
              */
             InitializeComponent();
             lbl_usuario.Text = usuario; // nombre de usuario
-            lbl_modulo.Text = modulo; // tablas disponibles
+            this.modulo = modulo; // tablas disponibles
             menu = anterior; // formulario anterior
             getModulo();
             getOperador(1, cbo_funcion);
@@ -33,6 +34,19 @@ namespace ConsultasInteligentes
             actualizar();
         }
 
+        private void getTabla(ComboBox temp)
+        {
+            /* 
+             * programador: Josue Roberto Ponciaco Del Cid
+             * descripcion: obtiene las tablas disponibles que tiene permiso de consultar el usuario
+             */
+            int num = modulo.Length;
+            for (int i=0;i<num;i++)
+            {
+                temp.Items.Add(modulo[i]);
+            }
+        }
+
         private void getModulo()
         {
             /* 
@@ -40,13 +54,13 @@ namespace ConsultasInteligentes
              * descripcion: obtiene las tablas disponibles que tiene permiso de consultar el usuario
              */
             cbo_tabla.Items.Clear();
-            cbo_tabla.Items.Add(lbl_modulo.Text);
+            getTabla(cbo_tabla);
             cbo_tabla_operando1.Items.Clear();
-            cbo_tabla_operando1.Items.Add(lbl_modulo.Text);
+            getTabla(cbo_tabla_operando1);
             cbo_tabla_operando2.Items.Clear();
-            cbo_tabla_operando2.Items.Add(lbl_modulo.Text);
+            getTabla(cbo_tabla_operando2);
             cbo_tabla_by.Items.Clear();
-            cbo_tabla_by.Items.Add(lbl_modulo.Text);
+            getTabla(cbo_tabla_by);
         }
 
         private void getCampos(String modulo, ComboBox cbo_temp)
@@ -166,7 +180,18 @@ namespace ConsultasInteligentes
                 {
                     campos = "SELECT * ";
                 }
-                campos += " FROM " + lbl_modulo.Text + "";
+                int num = modulo.Length;
+                for (int i = 0; i < num; i++)
+                {
+                    if (i == 0)
+                    {
+                        campos += " FROM " + modulo[i];
+                    }
+                    else
+                    {
+                        campos += ", " + modulo[i];
+                    }
+                }
                 max = cbo_condiciones.Items.Count;
                 for (int i = 0; i < max; i++)
                 {
