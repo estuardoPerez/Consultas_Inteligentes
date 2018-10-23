@@ -15,6 +15,7 @@ namespace ConsultasInteligentes
     {
         private frm_menu menu;
         String[] modulo;
+        String tablas;
 
         public frm_consultas(frm_menu anterior, String usuario, String[] modulo)
         {
@@ -53,6 +54,8 @@ namespace ConsultasInteligentes
              * programador: Josue Roberto Ponciaco Del Cid
              * descripcion: obtiene las tablas disponibles que tiene permiso de consultar el usuario
              */
+            cmb_tablas_disp.Items.Clear();
+            getTabla(cmb_tablas_disp);
             cbo_tabla.Items.Clear();
             getTabla(cbo_tabla);
             cbo_tabla_operando1.Items.Clear();
@@ -69,10 +72,10 @@ namespace ConsultasInteligentes
              * programador: Julio Ernesto Tánchez Vides
              * descripcion: obtiene los campos de la tabla seleccionada
              */
-            OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB // obtiene conexion con la DB
             try
             {
-                string Query = string.Format("SELECT NOMBRE_CAMPO FROM tbl_campo WHERE ID_MODULO = (SELECT ID_MODULO FROM tbl_modulo WHERE nombre_modulo = '" + modulo + "');"); // query
+                OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB // obtiene conexion con la DB
+                string Query = string.Format("SELECT NOMBRE_CAMPO FROM TBL_Campo WHERE ID_TABLA = (SELECT ID_TABLA FROM TBL_Tabla WHERE NOMBRE_TABLA = '" + modulo + "');"); // query
                 OdbcCommand cmd = new OdbcCommand(Query, conexion);
                 OdbcDataReader reader = cmd.ExecuteReader();
                 cbo_temp.SelectedIndex = -1;
@@ -81,12 +84,12 @@ namespace ConsultasInteligentes
                 {
                     cbo_temp.Items.Add(reader.GetString(0)); // agrega los campos a cbo_temp
                 }
+                conexion.Close(); // cierre de conexion con la DB // cierre de conexion con la DB
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            conexion.Close(); // cierre de conexion con la DB // cierre de conexion con la DB
         }
 
         private void getOperador(int operador, ComboBox cbo_temp)
@@ -95,10 +98,10 @@ namespace ConsultasInteligentes
              * programador: Julio Ernesto Tánchez Vides
              * descripcion: obtiene los operados disponibles segun el tipo de operador
              */
-            OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB
             try
             {
-                string Query = string.Format("SELECT OPERADOR_OPERADOR FROM tbl_operador WHERE ID_TIPO_OPERADOR = " + operador + ";");
+                OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB
+                string Query = string.Format("SELECT OPERADOR_OPERADOR FROM TBL_Operador WHERE ID_Tipo_Operador = " + operador + ";");
                 OdbcCommand cmd = new OdbcCommand(Query, conexion);
                 OdbcDataReader reader = cmd.ExecuteReader();
                 cbo_temp.SelectedIndex = -1;
@@ -107,12 +110,12 @@ namespace ConsultasInteligentes
                 {
                     cbo_temp.Items.Add(reader.GetString(0)); // agrega los operadores a cbo_temp
                 }
+                conexion.Close(); // cierre de conexion con la DB
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            conexion.Close(); // cierre de conexion con la DB
         }
 
         private void actualizar()
@@ -121,10 +124,10 @@ namespace ConsultasInteligentes
              * programador: Julio Ernesto Tánchez Vides
              * descripcion: obtiene las consultas creadas por usuario
              */
-            OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB
             try
             {
-                string sql = string.Format("SELECT * FROM tbl_query WHERE nickname_usuario = '" + lbl_usuario.Text + "';");
+                OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB
+                string sql = string.Format("SELECT id_query, usu_codigo, nombre_query, select_query FROM TBL_Query WHERE usu_codigo = " + lbl_usuario.Text + " AND estatus = 0;");
                 OdbcCommand cmd = new OdbcCommand(sql, conexion);
                 OdbcDataReader reader = cmd.ExecuteReader();
                 dgv_query.Rows.Clear();
@@ -132,22 +135,17 @@ namespace ConsultasInteligentes
                 {
                     dgv_query.Rows.Add(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
                 }
+                conexion.Close(); // cierre de conexion con la DB
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-            conexion.Close(); // cierre de conexion con la DB
         }
 
         private void btn_salir_Click(object sender, EventArgs e)
         {
-            /* 
-             * programador: Cristian Estuardo Pedroza Vaides
-             * descripcion: cierre de formulario 
-             */
-            menu.Show();
-            this.Close();
+            
         }
 
         private void btn_guardar_Click(object sender, EventArgs e)
@@ -180,18 +178,19 @@ namespace ConsultasInteligentes
                 {
                     campos = "SELECT * ";
                 }
-                int num = modulo.Length;
-                for (int i = 0; i < num; i++)
+                max = cmb_tabla.Items.Count;
+                for (int i = 0; i < max; i++)
                 {
+                    cmb_tabla.SelectedIndex = i;
                     if (i == 0)
                     {
-                        campos += " FROM " + modulo[i];
+                        campos += " FROM " + cmb_tabla.Text;
                     }
                     else
                     {
-                        campos += ", " + modulo[i];
+                        campos += ", " + cmb_tabla.Text;
                     }
-                }
+                } 
                 max = cbo_condiciones.Items.Count;
                 for (int i = 0; i < max; i++)
                 {
@@ -210,25 +209,25 @@ namespace ConsultasInteligentes
                 for (int i = 0; i < max; i++)
                 {
                     /* obtencion de condiciones de agrupacion creadas */
-                    cbo_condiciones.SelectedIndex = i;
+                    cbo_condiciones_by.SelectedIndex = i;
                     campos += " " + cbo_condiciones_by.Text;
                 }
-                OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB
                 try
                 {
-                    string sql = string.Format("INSERT INTO tbl_query VALUES (NULL,'" + lbl_usuario.Text + "','" + txt_nombre_consulta.Text + "'," + '"' + campos + '"' + ")");
+                    OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB
+                    string sql = string.Format("INSERT INTO TBL_Query VALUES (NULL,'" + txt_nombre_consulta.Text + "'," + '"' + campos + '"' + "," + lbl_usuario.Text + ",0)");
                     OdbcCommand cmd = new OdbcCommand(sql, conexion);
                     cmd.ExecuteNonQuery();
                     limpiar();
                     menu.actualizar();
                     actualizar();
                     MessageBox.Show("GUARDADO!", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    conexion.Close(); // cierre de conexion con la DB
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
                 }
-                conexion.Close(); // cierre de conexion con la DB
             }
             else
             {
@@ -424,6 +423,9 @@ namespace ConsultasInteligentes
             cbo_columnas.SelectedIndex = -1;
             cbo_condiciones.Items.Clear();
             cbo_condiciones.SelectedIndex = -1;
+            cmb_tabla.Items.Clear();
+            cmb_tabla.SelectedIndex = -1;
+            cmb_tablas_disp.SelectedIndex = -1;
             cbo_condiciones_by.Items.Clear();
             cbo_condiciones_by.SelectedIndex = -1;
         }
@@ -713,6 +715,9 @@ namespace ConsultasInteligentes
             if (cbo_operador_by.SelectedIndex != -1 && cbo_tabla_by.SelectedIndex != -1 && cbo_campo_by.SelectedIndex != -1)
             {
                 cbo_condiciones_by.Items.Add(cbo_operador_by.Text + " " + cbo_tabla_by.Text + "." + cbo_campo_by.Text);
+                cbo_operador_by.SelectedIndex = -1;
+                cbo_tabla_by.SelectedIndex = -1;
+                cbo_campo_by.SelectedIndex = -1;
             }
             else
             {
@@ -774,10 +779,10 @@ namespace ConsultasInteligentes
              */
             if (txt_id_consulta.Text != "")
             {
-                OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB
                 try
                 {
-                    string sql = string.Format("DELETE FROM tbl_query WHERE ID_QUERY = {0}", txt_id_consulta.Text);
+                    OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB
+                    string sql = string.Format("DELETE FROM TBL_Query WHERE ID_QUERY = {0}", txt_id_consulta.Text);
                     OdbcCommand cmd = new OdbcCommand(sql, conexion);
                     int ban = cmd.ExecuteNonQuery();
                     if (ban == 1)
@@ -792,12 +797,12 @@ namespace ConsultasInteligentes
                     menu.actualizar();
                     actualizar();
                     txt_id_consulta.Focus();
+                    conexion.Close(); // cierre de conexion con la DB
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
                 }
-                conexion.Close(); // cierre de conexion con la DB
             }
             else
             {
@@ -814,10 +819,10 @@ namespace ConsultasInteligentes
              */
             if (txt_id_consulta_editar.Text != "")
             {
-                OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB
                 try
                 {
-                    string sql = string.Format("SELECT NOMBRE_QUERY, SELECT_QUERY FROM tbl_query WHERE ID_QUERY = " + txt_id_consulta_editar.Text);
+                    OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB
+                    string sql = string.Format("SELECT NOMBRE_QUERY, SELECT_QUERY FROM TBL_Query WHERE ID_QUERY = " + txt_id_consulta_editar.Text);
                     OdbcCommand cmd = new OdbcCommand(sql, conexion);
                     OdbcDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -836,12 +841,12 @@ namespace ConsultasInteligentes
                     {
                         MessageBox.Show("Consulta no encontrada!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    conexion.Close(); // cierre de conexion con la DB
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
                 }
-                conexion.Close(); // cierre de conexion con la DB
             }
             else
             {
@@ -875,10 +880,10 @@ namespace ConsultasInteligentes
              */
             if (txt_query.Text != "" && txt_select.Text != "" )
             {
-                OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB ;
                 try
                 {
-                    string sql = string.Format("UPDATE tbl_query SET NOMBRE_QUERY = '" + txt_query.Text + "', SELECT_QUERY = '" + txt_select.Text + " WHERE ID_QUERY = " + txt_id_consulta_editar.Text);
+                    OdbcConnection conexion = DB.getConnection(); // obtiene conexion con la DB ;
+                    string sql = string.Format("UPDATE TBL_Query SET NOMBRE_QUERY = '" + txt_query.Text + "', SELECT_QUERY = '" + txt_select.Text + "' WHERE ID_QUERY = " + txt_id_consulta_editar.Text);
                     OdbcCommand cmd = new OdbcCommand(sql, conexion);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Consulta actualizada!", "MENSAJE", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -895,12 +900,12 @@ namespace ConsultasInteligentes
                     txt_select.Text = "";
                     menu.actualizar();
                     actualizar();
+                    conexion.Close(); // cierre de conexion con la DB
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
                 }
-                conexion.Close(); // cierre de conexion con la DB
             }
             else
                 MessageBox.Show("Complete todos los campos!!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -945,6 +950,77 @@ namespace ConsultasInteligentes
              * descripcion: abre el menu cuando el formulario se cierra
              */
             menu.Show();
+        }
+
+        private void btn_salir_Click_1(object sender, EventArgs e)
+        {
+            /* 
+             * programador: Josue Roberto Ponciano del Cid
+             * descripcion: cierre de formulario 
+             */
+            menu.Show();
+            this.Close();
+        }
+
+        private void btn_minimizar_Click(object sender, EventArgs e)
+        {
+            /* 
+             * programador: Josue Roberto Ponciano del Cid
+             * descripcion: minimizar formulario 
+             */
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btn_ayuda_Click_1(object sender, EventArgs e)
+        {
+            /* 
+             * programador: Jonathan David Pérez Barahona
+             * descripcion: abre la pagina pricipal de ayuda
+             */
+            Help.ShowHelp(this, "C:/Users/chopes/Desktop/paginas/consulta.chm", "C:/Users/chopes/Desktop/paginas/Gestion/Gestion/gestion.html");
+        }
+
+        private void dgv_query_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void gpb_operando_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_drop_tabla_Click(object sender, EventArgs e)
+        {
+            /* 
+            * programador: Josue Roberto Ponciano del Cid
+            * descripcion: elimina tabla de ComboBox
+            */
+            if (cmb_tabla.SelectedIndex != -1)
+            {
+                cmb_tabla.Items.RemoveAt(cmb_tabla.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un Item para eliminar!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btn_add_tabla_Click(object sender, EventArgs e)
+        {
+            /* 
+            * programador: Josue Roberto Ponciano del Cid
+            * descripcion: agrega tabla a ComboBox
+            */
+            if (cmb_tablas_disp.SelectedIndex != -1)
+            {
+                cmb_tabla.Items.Add(cmb_tablas_disp.Text);
+                cmb_tablas_disp.SelectedIndex = -1;
+            }
+            else
+            {
+                MessageBox.Show("Complete los campos obligatorios!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

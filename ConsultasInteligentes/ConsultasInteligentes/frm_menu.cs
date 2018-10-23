@@ -43,10 +43,10 @@ namespace ConsultasInteligentes
              * programador: Axel Andrés Carrera Alvarado
              * descripcion: procedimiento que actualiza el listado de consultas disponibles por usuario
              */
-            OdbcConnection conexion = DB.getConnection(); // obtiene la conexion con la DB
             try
             {
-                string sql = string.Format("SELECT NOMBRE_QUERY FROM tbl_query WHERE NICKNAME_USUARIO = '" + lbl_usuario.Text + "'"); // query
+                OdbcConnection conexion = DB.getConnection(); // obtencion de conexion con la DB
+                string sql = string.Format("SELECT NOMBRE_QUERY FROM TBL_Query WHERE usu_codigo = " + lbl_usuario.Text + "  AND estatus = 0;"); // query
                 OdbcCommand cmd = new OdbcCommand(sql, conexion);
                 OdbcDataReader reader = cmd.ExecuteReader(); // ejecucion query
                 cbo_consultas.Items.Clear();
@@ -54,13 +54,13 @@ namespace ConsultasInteligentes
                 {
                     cbo_consultas.Items.Add(reader.GetString(0)); // agrega consultas disponibles a cbo_consultas
                 }
+                conexion.Close(); // cierre de conexion con la DB
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
                 this.Close();
             }
-            conexion.Close(); // cierre de conexion con la DB
         }
 
         private void getConsulta(String sql)
@@ -69,20 +69,20 @@ namespace ConsultasInteligentes
              * programador: Josue Roberto Ponciaco Del Cid
              * descripcion: procedimiento que muestra el resultado de las consultas en dgv_query
              */
-            OdbcConnection conexion = DB.getConnection(); // obtiene la conexion con la DB
             try
             {
+                OdbcConnection conexion = DB.getConnection(); // obtiene la conexion con la DB
                 OdbcDataAdapter SDA = new OdbcDataAdapter(sql, conexion);
                 DataTable dt = new DataTable();
                 dgv_query.DataSource = null; 
                 SDA.Fill(dt);
                 dgv_query.DataSource = dt; // establece el origen de datos para el que DataGridView muestre datos
+                conexion.Close(); // cierre de conexion con la DB
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-            conexion.Close(); // cierre de conexion con la DB
         }
 
         private void btn_salir_Click(object sender, EventArgs e)
@@ -100,6 +100,9 @@ namespace ConsultasInteligentes
             * programador: Cristian Estuardo Pedroza Vaides
             * descripcion: abre formulacion para las gestiones de consultas
             */
+            dgv_query.DataSource = null;
+            cbo_consultas.SelectedIndex = -1;
+
             frm_consultas nuevo = new frm_consultas(this, lbl_usuario.Text, modulo);
             nuevo.Show();
             this.Hide();
@@ -123,10 +126,10 @@ namespace ConsultasInteligentes
              */
             if (cbo_consultas.SelectedIndex != -1)
             {
-                OdbcConnection conexion = DB.getConnection(); // obtencion de conexion con la DB
                 try
                 {
-                    string sql = string.Format("SELECT SELECT_QUERY FROM tbl_query WHERE NOMBRE_QUERY = '" + cbo_consultas.Text + "'"); // query
+                    OdbcConnection conexion = DB.getConnection(); // obtencion de conexion con la DB
+                    string sql = string.Format("SELECT SELECT_QUERY FROM TBL_Query WHERE NOMBRE_QUERY = '" + cbo_consultas.Text + "' AND usu_codigo = " + lbl_usuario.Text + " AND estatus = 0;"); // query
                     OdbcCommand cmd = new OdbcCommand(sql, conexion);
                     OdbcDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -137,12 +140,12 @@ namespace ConsultasInteligentes
                     {
                         MessageBox.Show("Error consulta no encontrada!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    conexion.Close(); // cierre de conexion con la DB
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
                 }
-                conexion.Close(); // cierre de conexion DB
             }
             else
             {
@@ -179,6 +182,33 @@ namespace ConsultasInteligentes
              * descripcion: abre la pagina pricipal de ayuda
              */
             Help.ShowHelp(this, "C:/Users/chopes/Desktop/paginas/consulta.chm", "C:/Users/chopes/Desktop/paginas/Gestion/Gestion/gestion.html");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            /* 
+             * programador: Cristian Estuardo Pedroza Vaides
+             * descripcion: cierre de formulario 
+             */
+            this.Close();
+        }
+
+        private void btn_ayuda_Click_1(object sender, EventArgs e)
+        {
+            /* 
+             * programador: Jonathan David Pérez Barahona
+             * descripcion: abre la pagina pricipal de ayuda
+             */
+            Help.ShowHelp(this, "C:/Users/chopes/Desktop/paginas/consulta.chm", "C:/Users/chopes/Desktop/paginas/Gestion/Gestion/gestion.html");
+        }
+
+        private void btn_minimizar_Click(object sender, EventArgs e)
+        {
+            /* 
+             * programador: Josue Roberto Ponciano del Cid
+             * descripcion: minimizar formulario 
+             */
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }
