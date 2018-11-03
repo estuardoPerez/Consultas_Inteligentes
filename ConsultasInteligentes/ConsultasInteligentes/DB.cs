@@ -18,7 +18,7 @@ namespace ConsultasInteligentes
              */
             try
             {
-                OdbcConnection cnx = new OdbcConnection("Driver={MySQL ODBC 5.3 ANSI Driver};server=104.154.63.216;uid=pruebas;pwd=umg;database=BdColchoneria;port=3306");
+                OdbcConnection cnx = new OdbcConnection("Dsn=colchoneria");
                 cnx.Open();
                 return cnx;
             }
